@@ -3,78 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বিআরএস খতিয়ান নং- ৬৬৮</title>
+    <title>খতিয়ান ব্যবস্থাপনা ও প্রিন্ট</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', 'SolaimanLipi', Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', Arial, sans-serif; }
         body { background-color: #0f172a; color: #fff; padding: 20px; }
         
         .container { max-width: 1050px; margin: auto; }
         .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
         
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .btn-back { background: #475569; color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; }
-        .header-title { font-size: 20px; color: #f97316; font-weight: bold; }
+        .header-title { font-size: 20px; color: #f97316; font-weight: bold; margin-bottom: 15px; }
         
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
         .form-group label { font-size: 13px; color: #cbd5e1; }
         input, textarea { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 13px; outline: none; }
         
-        .btn-print { background: #16a34a; color: #fff; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn-action { background: #16a34a; color: #fff; border: none; padding: 10px 18px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        .btn-cancel { background: #64748b; margin-left: 5px; }
 
-        /* Printable Sheet */
-        .sheet-container { background: #fff; color: #000; padding: 25px 35px; border-radius: 4px; max-width: 1050px; margin: auto; }
+        /* List Table */
+        .list-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .list-table th, .list-table td { border: 1px solid #334155; padding: 8px; font-size: 13px; text-align: left; }
+        .list-table th { background: #0f172a; color: #f97316; }
+        .btn-edit { background: #0284c7; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .btn-delete { background: #dc2626; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .btn-view { background: #16a34a; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+
+        /* Printable Area */
+        .sheet-container { background: #fff; color: #000; padding: 25px 35px; border-radius: 4px; max-width: 1050px; margin: auto; position: relative; }
         .sheet-header { position: relative; margin-bottom: 10px; text-align: center; }
         .khatian-title { font-size: 24px; font-weight: bold; }
+        .page-no { position: absolute; right: 0; top: 0; font-size: 13px; }
         
-        .top-meta { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
+        .top-meta { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: bold; margin-bottom: 6px; }
         
         .khatian-table { width: 100%; border-collapse: collapse; margin-top: 2px; }
-        .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 3px 5px; font-size: 13px; text-align: center; vertical-align: top; }
+        .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 2px 4px; font-size: 12.5px; text-align: center; vertical-align: top; }
         .text-left { text-align: left !important; }
 
         .footer-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; position: relative; }
         .footer-text { font-size: 12px; line-height: 1.4; }
 
-        #qrcode img, #qrcode canvas { width: 90px !important; height: 90px !important; display: block; }
+        #qrcode img, #qrcode canvas { width: 85px !important; height: 85px !important; display: block; }
+        .expired-msg { display: none; background: #ef4444; color: white; padding: 15px; text-align: center; font-size: 16px; font-weight: bold; border-radius: 6px; margin-bottom: 15px; }
 
         @media print {
             body { background: #fff; padding: 0; }
             .no-print { display: none !important; }
             .sheet-container { padding: 0; width: 100%; max-width: 100%; }
-            @page { size: A4 landscape; margin: 10mm; }
+            @page { size: A4 landscape; margin: 8mm; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    
+    <!-- Admin Controls / Form -->
     <div class="card no-print">
-        <div class="top-bar">
-            <a href="javascript:void(0)" onclick="location.reload()" class="btn-back">⬅ রিফ্রেশ করুন</a>
-            <div class="header-title">বিআরএস খতিয়ান তথ্য সংশোধন</div>
-            <div></div>
-        </div>
+        <div class="header-title" id="form_title">নতুন খতিয়ান এন্ট্রি / ইডিট</div>
+        <input type="hidden" id="edit_index" value="-1">
         
         <div class="form-grid">
-            <div class="form-group"><label>খতিয়ান নং:</label><input type="text" id="in_khatian" value="৬৬৮" oninput="updateSheet()"></div>
-            <div class="form-group"><label>বিভাগ:</label><input type="text" id="in_division" value="চট্টগ্রাম" oninput="updateSheet()"></div>
-            <div class="form-group"><label>জেলা:</label><input type="text" id="in_district" value="নোয়াখালী" oninput="updateSheet()"></div>
-            <div class="form-group"><label>উপজেলা/থানা:</label><input type="text" id="in_upazila" value="বেগমগঞ্জ" oninput="updateSheet()"></div>
-            <div class="form-group"><label>মৌজা:</label><input type="text" id="in_mouza" value="অনন্তপুর" oninput="updateSheet()"></div>
-            <div class="form-group"><label>জে. এল. নং:</label><input type="text" id="in_jl" value="২৩৪" oninput="updateSheet()"></div>
-            <div class="form-group" style="grid-column: span 2;"><label>দাগ নং (কমা দিয়ে):</label><input type="text" id="in_dag" value="4257,4258,4259" oninput="updateSheet()"></div>
-            <div class="form-group" style="grid-column: span 2;"><label>প্রধান মালিকদের নাম:</label><input type="text" id="in_owners" value="দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন, জহির উদ্দিন, শাফিয়া খাতুন, মনোয়ারা বেগম" oninput="updateSheet()"></div>
+            <div class="form-group"><label>খতিয়ান নং:</label><input type="text" id="in_khatian" value="৬৬৮"></div>
+            <div class="form-group"><label>বিভাগ:</label><input type="text" id="in_division" value="চট্টগ্রাম"></div>
+            <div class="form-group"><label>জেলা:</label><input type="text" id="in_district" value="নোয়াখালী"></div>
+            <div class="form-group"><label>উপজেলা/থানা:</label><input type="text" id="in_upazila" value="বেগমগঞ্জ"></div>
+            <div class="form-group"><label>মৌজা:</label><input type="text" id="in_mouza" value="অনন্তপুর"></div>
+            <div class="form-group"><label>জে. এল. নং:</label><input type="text" id="in_jl" value="২৩৪"></div>
+            <div class="form-group" style="grid-column: span 2;">
+                <label style="color:#f59e0b; font-weight:bold;">মেয়াদ শেষের তারিখ (শুধুমাত্র আপনি দেখবেন):</label>
+                <input type="date" id="in_expiry" value="2026-12-31">
+            </div>
         </div>
 
-        <button class="btn-print" onclick="window.print()">🖨 খতিয়ান সেভ ও প্রিন্ট করুন</button>
+        <button class="btn-action" onclick="saveKhatian()">💾 খতিয়ান সেভ করুন</button>
+        <button class="btn-action btn-cancel" onclick="resetForm()">নতুন ফিল্ড</button>
+        <button class="btn-action" style="background:#0284c7; float:right;" onclick="window.print()">🖨 প্রিন্ট করুন</button>
     </div>
 
-    <!-- Printable Area -->
-    <div class="sheet-container">
+    <!-- Saved Khatian List -->
+    <div class="card no-print">
+        <div class="header-title">সংরক্ষিত খতিয়ান তালিকা</div>
+        <table class="list-table">
+            <thead>
+                <tr>
+                    <th>খতিয়ান নং</th>
+                    <th>মৌজা</th>
+                    <th>উপজেলা</th>
+                    <th>মেয়াদের তারিখ (এডমিন ভিউ)</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="khatian_list_body">
+                <!-- Dynamic Items -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Expired Warning -->
+    <div id="expired_block" class="expired-msg">
+        ⚠️ এই খতিয়ানটির নির্ধারিত সময়সীমা পার হয়ে গেছে!
+    </div>
+
+    <!-- Printable Sheet (No Expiry Date Shown Here) -->
+    <div class="sheet-container" id="sheet_main">
         <div class="sheet-header">
+            <div class="page-no">পৃষ্ঠা নং: ১ এর ১</div>
             <div class="khatian-title">খতিয়ান নং- <span id="out_khatian">৬৬৮</span></div>
         </div>
 
@@ -91,9 +128,9 @@
             <thead>
                 <tr>
                     <th rowspan="2" style="width: 22%;">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা</th>
-                    <th rowspan="2" style="width: 6%;">অংশ</th>
+                    <th rowspan="2" style="width: 5%;">অংশ</th>
                     <th rowspan="2" style="width: 5%;">রাজস্ব</th>
-                    <th rowspan="2" style="width: 7%;">দাগ</th>
+                    <th rowspan="2" style="width: 6%;">দাগ</th>
                     <th colspan="2" style="width: 12%;">জমির শ্রেণী</th>
                     <th colspan="2" style="width: 12%;">দাগের মোট পরিমাণ</th>
                     <th rowspan="2" style="width: 8%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
@@ -114,46 +151,44 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left" style="line-height: 1.3; font-size: 12px;">
+                    <td class="text-left" style="line-height: 1.3;">
                         মালিক<br>
-                        দং-গিয়াস উদ্দিন<br>
-                        নিজাম উদ্দিন<br>
-                        মহি উদ্দিন<br>
-                        কামাল উদ্দিন<br>
-                        সিরাজ উদ্দিন<br>
-                        আলা উদ্দিন<br>
-                        জহির উদ্দিন<br>
-                        পিং আনোয়ার আহমেদ<br>
-                        শাফিয়া খাতুন<br>
-                        জং আনোয়ার আহমেদ<br>
-                        মনোয়ারা বেগম<br>
-                        জং ফজলুল হক<br>
+                        দং ছকিনা খাতুন<br>
+                        জং চৌধুরী মিয়া<br>
+                        রজ্জবের নেছা<br>
+                        জং আবুল কালাম<br>
+                        বদরের নেছা<br>
+                        জং আবুল কাশেম<br>
+                        রহিমা খাতুন<br>
+                        জং সফি উল্যা<br>
+                        জয়নাল আবদীন<br>
+                        আবুল কাশেম<br>
+                        আমিন উল্যা<br>
+                        পিং চৌধুরী মিয়া<br>
                         সাং নিজ
                     </td>
-                    <td style="font-size: 11px; line-height: 1.3;">
-                        <br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৬৬৬<br>০.৬৬৬<br><br>০.৬২৫<br><br>০.০৫৮
-                    </td>
+                    <td style="line-height: 1.3;"><br>০.০৮৯<br><br>০.০৬৯<br><br>০.০৬৯<br><br>০.০৬৯<br><br>০.২৪৫<br>০.২৪৫<br>০.২১৪</td>
                     <td></td>
-                    <td>4257<br>4258<br>4259</td>
-                    <td class="text-left">বাড়ী<br>বাড়ী<br>বাড়ী</td>
+                    <td>৪২৫৫<br>৪২৫৭<br>৪৩২৬<br>৪৩২৭<br>৪৩৩১</td>
+                    <td class="text-left">বাড়ী<br>বাড়ী<br>পুকুর<br>বাড়ী<br>পুকুর</td>
                     <td></td>
                     <td><br><br>১</td>
-                    <td>৫৮০০<br>১৮০০<br>০০০০</td>
-                    <td>০.৪০৩<br>০.০৫৫<br>০.৩০০</td>
-                    <td>০<br>০<br>০</td>
-                    <td>০৬০০<br>০৬০০<br>৬০০০</td>
-                    <td class="text-left">টিন/১<br><br><br>টিন/১ ঘর/৫</td>
+                    <td>৫৩০০<br>৫৮০০<br>১৫০০<br>২৩০০<br>৪২০০০</td>
+                    <td>০.১৮৮<br>০.২৫৮<br>০.০৭০<br>০.৪৯৭<br>০.৪৫৭</td>
+                    <td>০<br>০<br>০<br>০<br>০</td>
+                    <td>১০১০<br>১৫০০<br>০৮০০<br>১১০০<br>৩৬০০</td>
+                    <td class="text-left">টিন/১ ঘর/১<br><br><br> ঘর/২</td>
                 </tr>
                 <tr>
                     <td class="text-left" style="font-size: 11px;">
                         ............ধারামতে নোট বা পরিবর্তন মায়<br>
-                        মোকদ্দমা নং ..... এবং সন.........
+                        মোকদমা নং ..... এবং সন.........
                     </td>
                     <td>১.০০০</td>
                     <td colspan="4"><b>পরিবার পরিকল্পনা গ্রহণ করুন</b></td>
                     <td colspan="2"><b>মোট জমি:</b></td>
                     <td><b>০</b></td>
-                    <td><b>৩৭০০</b></td>
+                    <td><b>৮০০০</b></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -161,13 +196,12 @@
 
         <div class="footer-section">
             <div class="footer-text">
-                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: <span id="auto_date"></span><br>
+                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: <span id="auto_date">--</span><br>
                 বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
             </div>
 
-            <!-- District Seal SVG -->
-            <div style="width:110px; height:110px;">
-                <svg viewBox="0 0 200 200" width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+            <div style="width:100px; height:100px;">
+                <svg viewBox="0 0 200 200" width="95" height="95" xmlns="http://www.w3.org/2000/svg">
                     <path id="topCurve" d="M 22, 100 A 78,78 0 1,1 178, 100" fill="none" />
                     <path id="bottomCurve" d="M 178, 100 A 78,78 0 0,1 22, 100" fill="none" />
                     <circle cx="100" cy="100" r="96" fill="none" stroke="#1d2e4a" stroke-width="2.5" />
@@ -179,55 +213,89 @@
                     <text fill="#1d2e4a" font-size="11" font-weight="700">
                         <textPath href="#bottomCurve" startOffset="50%" text-anchor="middle">নোয়াখালী</textPath>
                     </text>
-                    <path d="M 100 75 C 80 90, 80 110, 100 125 C 120 110, 120 90, 100 75 Z" fill="#1d2e4a"/>
+                    <circle cx="100" cy="100" r="22" fill="#1d2e4a"/>
                 </svg>
             </div>
 
-            <!-- Dynamic QR Code Container -->
             <div id="qrcode"></div>
         </div>
     </div>
 </div>
 
 <script>
+    let khatianData = JSON.parse(localStorage.getItem('khatians')) || [
+        { khatian: '৬৬৮', division: 'চট্টগ্রাম', district: 'নোয়াখালী', upazila: 'বেগমগঞ্জ', mouza: 'অনন্তপুর', jl: '২৩৪', expiry: '2026-12-31' }
+    ];
+
     function toBanglaNum(num) {
-        const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
-        return num.toString().replace(/\d/g, d => banglaDigits[d]);
+        const bdDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+        return num.toString().replace(/\d/g, d => bdDigits[d]);
     }
 
     function setAutoDate() {
         const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
         const today = new Date();
-        const d = toBanglaNum(today.getDate());
-        const m = months[today.getMonth()];
-        const y = toBanglaNum(today.getFullYear());
-        document.getElementById('auto_date').innerText = `${d}-${m}-${y}`;
+        document.getElementById('auto_date').innerText = `${toBanglaNum(today.getDate().toString().padStart(2, '0'))}-${months[today.getMonth()]}-${toBanglaNum(today.getFullYear())}`;
     }
 
-    function updateSheet() {
-        document.getElementById('out_khatian').innerText = document.getElementById('in_khatian').value;
-        document.getElementById('out_division').innerText = document.getElementById('in_division').value;
-        document.getElementById('out_district').innerText = document.getElementById('in_district').value;
-        document.getElementById('out_upazila').innerText = document.getElementById('in_upazila').value;
-        document.getElementById('out_mouza').innerText = document.getElementById('in_mouza').value;
-        document.getElementById('out_jl').innerText = document.getElementById('in_jl').value;
-        generateQR();
+    function renderList() {
+        const tbody = document.getElementById('khatian_list_body');
+        tbody.innerHTML = '';
+        khatianData.forEach((item, index) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${item.khatian}</td>
+                    <td>${item.mouza}</td>
+                    <td>${item.upazila}</td>
+                    <td><span style="color:#f59e0b; font-weight:bold;">${item.expiry || 'নাই'}</span></td>
+                    <td>
+                        <button class="btn-view" onclick="loadToSheet(${index})">ভিউ</button>
+                        <button class="btn-edit" onclick="editKhatian(${index})">ইডিট</button>
+                        <button class="btn-delete" onclick="deleteKhatian(${index})">ডিলেট</button>
+                    </td>
+                </tr>
+            `;
+        });
+        localStorage.setItem('khatians', JSON.stringify(khatianData));
     }
 
-    function generateQR() {
+    function loadToSheet(index) {
+        const item = khatianData[index];
+        document.getElementById('out_khatian').innerText = item.khatian;
+        document.getElementById('out_division').innerText = item.division;
+        document.getElementById('out_district').innerText = item.district;
+        document.getElementById('out_upazila').innerText = item.upazila;
+        document.getElementById('out_mouza').innerText = item.mouza;
+        document.getElementById('out_jl').innerText = item.jl;
+
+        checkExpiry(item.expiry);
+        generateQR(item);
+    }
+
+    function checkExpiry(expVal) {
+        if (!expVal) {
+            document.getElementById('sheet_main').style.display = 'block';
+            document.getElementById('expired_block').style.display = 'none';
+            return;
+        }
+        const expDate = new Date(expVal);
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        if (today > expDate) {
+            document.getElementById('sheet_main').style.display = 'none';
+            document.getElementById('expired_block').style.display = 'block';
+        } else {
+            document.getElementById('sheet_main').style.display = 'block';
+            document.getElementById('expired_block').style.display = 'none';
+        }
+    }
+
+    function generateQR(item) {
         const qrContainer = document.getElementById('qrcode');
         qrContainer.innerHTML = '';
         
-        const khatian = document.getElementById('in_khatian').value;
-        const division = document.getElementById('in_division').value;
-        const district = document.getElementById('in_district').value;
-        const upazila = document.getElementById('in_upazila').value;
-        const mouza = document.getElementById('in_mouza').value;
-        const dags = document.getElementById('in_dag').value;
-        const owners = document.getElementById('in_owners').value;
-
-        // Construct dynamic verification URL
-        const verifyURL = `https://mdrasel72735.github.io/dlrms.land.govt/verify.html?khatian=${encodeURIComponent(khatian)}&division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}&dags=${encodeURIComponent(dags)}&owners=${encodeURIComponent(owners)}`;
+        const verifyURL = `https://mdrasel72735.github.io/dlrms.land.govt/verify.html?khatian=${encodeURIComponent(item.khatian)}&division=${encodeURIComponent(item.division)}&district=${encodeURIComponent(item.district)}&upazila=${encodeURIComponent(item.upazila)}&mouza=${encodeURIComponent(item.mouza)}&exp=${encodeURIComponent(item.expiry)}`;
 
         new QRCode(qrContainer, {
             text: verifyURL,
@@ -237,9 +305,60 @@
         });
     }
 
+    function saveKhatian() {
+        const index = parseInt(document.getElementById('edit_index').value);
+        const newItem = {
+            khatian: document.getElementById('in_khatian').value,
+            division: document.getElementById('in_division').value,
+            district: document.getElementById('in_district').value,
+            upazila: document.getElementById('in_upazila').value,
+            mouza: document.getElementById('in_mouza').value,
+            jl: document.getElementById('in_jl').value,
+            expiry: document.getElementById('in_expiry').value
+        };
+
+        if (index === -1) {
+            khatianData.push(newItem);
+        } else {
+            khatianData[index] = newItem;
+        }
+
+        renderList();
+        loadToSheet(index === -1 ? khatianData.length - 1 : index);
+        resetForm();
+    }
+
+    function editKhatian(index) {
+        const item = khatianData[index];
+        document.getElementById('in_khatian').value = item.khatian;
+        document.getElementById('in_division').value = item.division;
+        document.getElementById('in_district').value = item.district;
+        document.getElementById('in_upazila').value = item.upazila;
+        document.getElementById('in_mouza').value = item.mouza;
+        document.getElementById('in_jl').value = item.jl;
+        document.getElementById('in_expiry').value = item.expiry;
+        
+        document.getElementById('edit_index').value = index;
+        document.getElementById('form_title').innerText = "খতিয়ান সংশোধন (ইডিট)";
+    }
+
+    function deleteKhatian(index) {
+        if (confirm("আপনি কি নিশ্চিত এই খতিয়ানটি তালিকা থেকে ডিলেট করতে চান?")) {
+            khatianData.splice(index, 1);
+            renderList();
+            if (khatianData.length > 0) loadToSheet(0);
+        }
+    }
+
+    function resetForm() {
+        document.getElementById('edit_index').value = "-1";
+        document.getElementById('form_title').innerText = "নতুন খতিয়ান এন্ট্রি / ইডিট";
+    }
+
     window.onload = function() {
         setAutoDate();
-        generateQR();
+        renderList();
+        if (khatianData.length > 0) loadToSheet(0);
     };
 </script>
 
