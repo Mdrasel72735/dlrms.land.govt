@@ -21,8 +21,8 @@
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
         .form-group label { font-size: 13px; color: #cbd5e1; }
-        input { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 13px; outline: none; }
-        input:focus { border-color: #38bdf8; }
+        input, textarea { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 13px; outline: none; }
+        input:focus, textarea:focus { border-color: #38bdf8; }
         
         .btn-print { background: #16a34a; color: #fff; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s; }
         .btn-print:hover { background: #15803d; }
@@ -89,7 +89,8 @@
             <div class="form-group"><label>উপজেলা/থানা:</label><input type="text" id="in_upazila" value="বেগমগঞ্জ" oninput="updateSheet()"></div>
             <div class="form-group"><label>মৌজা:</label><input type="text" id="in_mouza" value="অনন্তপুর" oninput="updateSheet()"></div>
             <div class="form-group"><label>জে. এল. নং:</label><input type="text" id="in_jl" value="২৩৪" oninput="updateSheet()"></div>
-            <div class="form-group"><label>রে. সা. নং:</label><input type="text" id="in_resa" value="" oninput="updateSheet()"></div>
+            <div class="form-group"><label>দাগ নং (কমা দিয়ে):</label><input type="text" id="in_dag" value="৪২৫৭,৪২৫৮,৪২৫৯" oninput="updateSheet()"></div>
+            <div class="form-group" style="grid-column: span 2;"><label>মালিকের নামসমূহ:</label><input type="text" id="in_owners" value="দং-গিয়াস উদ্দিন,নিজাম উদ্দিন,মহি উদ্দিন,কামাল উদ্দিন,সিরাজ উদ্দিন,আলা উদ্দিন,জহির উদ্দিন" oninput="updateSheet()"></div>
         </div>
 
         <button class="btn-print" onclick="window.print()">🖨 খতিয়ান সেভ ও প্রিন্ট করুন</button>
@@ -108,7 +109,7 @@
             <div>উপজেলা/থানা: <span id="out_upazila">বেগমগঞ্জ</span></div>
             <div>মৌজা: <span id="out_mouza">অনন্তপুর</span></div>
             <div>জে, এল, নং: <span id="out_jl">২৩৪</span></div>
-            <div>রে: সা: নং: <span id="out_resa"></span></div>
+            <div>রে: সা: নং: </div>
         </div>
 
         <table class="khatian-table">
@@ -195,7 +196,7 @@
 
         <div class="footer-section">
             <div class="footer-text">
-                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: ২২-০৮-২০২৬<br>
+                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: <span id="auto_date"></span><br>
                 বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
             </div>
 
@@ -263,6 +264,20 @@
 </div>
 
 <script>
+    function toBanglaNum(num) {
+        const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+        return num.toString().replace(/\d/g, d => banglaDigits[d]);
+    }
+
+    function setAutoDate() {
+        const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+        const today = new Date();
+        const d = toBanglaNum(today.getDate());
+        const m = months[today.getMonth()];
+        const y = toBanglaNum(today.getFullYear());
+        document.getElementById('auto_date').innerText = `${d}-${m}-${y}`;
+    }
+
     function updateSheet() {
         document.getElementById('out_khatian').innerText = document.getElementById('in_khatian').value;
         document.getElementById('out_division').innerText = document.getElementById('in_division').value;
@@ -270,7 +285,6 @@
         document.getElementById('out_upazila').innerText = document.getElementById('in_upazila').value;
         document.getElementById('out_mouza').innerText = document.getElementById('in_mouza').value;
         document.getElementById('out_jl').innerText = document.getElementById('in_jl').value;
-        document.getElementById('out_resa').innerText = document.getElementById('in_resa').value;
         generateQR();
     }
 
@@ -283,8 +297,11 @@
         const district = document.getElementById('in_district').value;
         const upazila = document.getElementById('in_upazila').value;
         const mouza = document.getElementById('in_mouza').value;
+        const dags = document.getElementById('in_dag').value;
+        const owners = document.getElementById('in_owners').value;
 
-        const verifyURL = `https://mdrasel72735.github.io/dlrms.land.govt/verify.html?khatian=${encodeURIComponent(khatian)}&division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}`;
+        // Path to verify page
+        const verifyURL = `https://mdrasel72735.github.io/dlrms.land.govt/verify.html?khatian=${encodeURIComponent(khatian)}&division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}&dags=${encodeURIComponent(dags)}&owners=${encodeURIComponent(owners)}`;
 
         new QRCode(qrContainer, {
             text: verifyURL,
@@ -295,6 +312,7 @@
     }
 
     window.onload = function() {
+        setAutoDate();
         generateQR();
     };
 </script>
