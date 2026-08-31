@@ -11,48 +11,35 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
         body { background-color: #0f172a; color: #fff; padding: 20px; }
         .container { max-width: 1050px; margin: auto; }
-        
         .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; }
         .header-title { font-size: 20px; color: #f97316; font-weight: bold; }
-        
         .btn { padding: 8px 16px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; font-size: 14px; }
         .btn-orange { background: #f97316; color: #fff; }
         .btn-green { background: #16a34a; color: #fff; width: 100%; margin-top: 15px; padding: 12px; font-size: 16px; }
         .btn-red { background: #dc2626; color: #fff; }
         .btn-blue { background: #0284c7; color: #fff; }
-        
-        /* Form Grid */
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px; }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
         .form-group label { font-size: 13px; color: #cbd5e1; }
         input { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 8px; border-radius: 4px; font-size: 13px; outline: none; }
-        
-        /* Table */
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .admin-table th, .admin-table td { border: 1px solid #334155; padding: 8px; font-size: 13px; text-align: left; }
         .admin-table th { background: #0f172a; color: #f97316; }
-
-        /* Login Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 100; }
         .modal-content { background: #1e293b; padding: 25px; border-radius: 8px; width: 320px; text-align: center; border: 1px solid #475569; }
-
-        /* Printable Sheet */
         .sheet-container { background: #fff; color: #000; padding: 25px 35px; border-radius: 4px; max-width: 1050px; margin: auto; position: relative; }
         .sheet-header { position: relative; margin-bottom: 10px; text-align: center; }
         .khatian-title { font-size: 24px; font-weight: bold; }
         .page-no { position: absolute; right: 0; top: 0; font-size: 13px; }
         .top-meta { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: bold; margin-bottom: 6px; }
-        
         .khatian-table { width: 100%; border-collapse: collapse; margin-top: 2px; }
         .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 3px 4px; font-size: 12.5px; text-align: center; vertical-align: top; }
         .text-left { text-align: left !important; }
-
         .footer-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
         .footer-text { font-size: 12px; line-height: 1.4; }
         #qrcode img, #qrcode canvas { width: 85px !important; height: 85px !important; }
         .expired-msg { display: none; background: #ef4444; color: white; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 6px; margin-bottom: 15px; }
-
         @media print {
             .no-print { display: none !important; }
             body { background: #fff; padding: 0; }
@@ -64,8 +51,6 @@
 <body>
 
 <div class="container">
-
-    <!-- Header & Login Status -->
     <div class="card no-print">
         <div class="top-bar">
             <button onclick="location.reload()" class="btn btn-blue"><i class="fa-solid fa-rotate-right"></i> রিফ্রেশ করুন</button>
@@ -77,10 +62,10 @@
         </div>
     </div>
 
-    <!-- ADMIN EDIT PANEL (Hidden by Default) -->
+    <!-- ADMIN EDIT PANEL -->
     <div class="card no-print" id="admin_panel" style="display: none;">
         <div style="color:#10b981; font-size:16px; font-weight:bold; margin-bottom:10px;">
-            <i class="fa-solid fa-user-shield"></i> এডমিন প্যানেল: খতিয়ান এডিটর ও মেয়াদ নির্ধারণ
+            <i class="fa-solid fa-user-shield"></i> এডমিন প্যানেল: তথ্য সংশোধন, জমি পরিমাপ ও মেয়াদ
         </div>
         
         <input type="hidden" id="edit_index" value="-1">
@@ -93,12 +78,17 @@
             <div class="form-group"><label>মৌজা:</label><input type="text" id="in_mouza" value="অনন্তপুর" oninput="updateSheet()"></div>
             <div class="form-group"><label>জে. এল. নং:</label><input type="text" id="in_jl" value="২৩৪" oninput="updateSheet()"></div>
             <div class="form-group"><label>দাগ নং (কমা দিয়ে):</label><input type="text" id="in_dag" value="4257,4258,4259" oninput="updateSheet()"></div>
+            
+            <!-- Land Measurement Fields -->
+            <div class="form-group"><label style="color:#38bdf8; font-weight:bold;">মোট জমি (একর):</label><input type="text" id="in_acre" value="০" oninput="updateSheet()"></div>
+            <div class="form-group"><label style="color:#38bdf8; font-weight:bold;">মোট জমি (শতাংশ):</label><input type="text" id="in_sotangso" value="৮০০০" oninput="updateSheet()"></div>
+
             <div class="form-group" style="grid-column: span 2;">
                 <label>প্রধান মালিকদের নাম:</label>
                 <input type="text" id="in_owners" value="দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন" oninput="updateSheet()">
             </div>
             <div class="form-group" style="grid-column: span 2;">
-                <label style="color:#f59e0b; font-weight:bold;">মেয়াদ শেষের তারিখ (মেয়াদ নির্ধারণ অপশন):</label>
+                <label style="color:#f59e0b; font-weight:bold;">মেয়াদ শেষের তারিখ:</label>
                 <input type="date" id="in_expiry" value="2026-12-31" onchange="updateSheet()">
             </div>
         </div>
@@ -106,26 +96,24 @@
         <button class="btn btn-green" onclick="saveKhatian()"><i class="fa-solid fa-floppy-disk"></i> খতিয়ান সেভ করুন</button>
     </div>
 
-    <!-- SAVED KHATIAN LIST PANEL (Admin View) -->
+    <!-- SAVED LIST PANEL -->
     <div class="card no-print" id="list_panel" style="display: none;">
-        <div style="color:#f97316; font-weight:bold; font-size:16px;">সংরক্ষিত খতিয়ান তালিকা (ইডিট ও ডিলেট অপশন)</div>
+        <div style="color:#f97316; font-weight:bold; font-size:16px;">সংরক্ষিত খতিয়ান তালিকা</div>
         <table class="admin-table">
             <thead>
                 <tr>
                     <th>খতিয়ান নং</th>
                     <th>মৌজা</th>
                     <th>উপজেলা</th>
+                    <th>মোট জমি</th>
                     <th>মেয়াদের তারিখ</th>
                     <th>অ্যাকশন</th>
                 </tr>
             </thead>
-            <tbody id="khatian_list_body">
-                <!-- Dynamic Items -->
-            </tbody>
+            <tbody id="khatian_list_body"></tbody>
         </table>
     </div>
 
-    <!-- Expired Warning Notice -->
     <div id="expired_block" class="expired-msg">
         ⚠️ এই খতিয়ানটির প্রদর্শনী সময়সীমা (মেয়াদ) শেষ হয়ে গেছে!
     </div>
@@ -160,12 +148,7 @@
                     <th rowspan="2" style="width: 18%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
                 </tr>
                 <tr>
-                    <th>কৃষি ৫(ক)</th>
-                    <th>অকৃষি ৫(খ)</th>
-                    <th>একর ৬(ক)</th>
-                    <th>শতাংশ ৬(খ)</th>
-                    <th>একর ৮(ক)</th>
-                    <th>শতাংশ ৮(খ)</th>
+                    <th>কৃষি ৫(ক)</th><th>অকৃষি ৫(খ)</th><th>একর ৬(ক)</th><th>শতাংশ ৬(খ)</th><th>একর ৮(ক)</th><th>শতাংশ ৮(খ)</th>
                 </tr>
                 <tr>
                     <th>১</th><th>২</th><th>৩</th><th>৪</th><th colspan="2">৫</th><th>৬(ক)</th><th>৬(খ)</th><th>৭</th><th>৮(ক)</th><th>৮(খ)</th><th>৯</th>
@@ -173,37 +156,26 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left" id="out_owners" style="line-height: 1.3;">
-                        মালিক<br>
-                        দং-গিয়াস উদ্দিন<br>
-                        নিজাম উদ্দিন<br>
-                        মহি উদ্দিন<br>
-                        কামাল উদ্দিন<br>
-                        সিরাজ উদ্দিন<br>
-                        আলা উদ্দিন
-                    </td>
-                    <td style="line-height: 1.3;"><br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৪৪৭<br>০.৬৬৬</td>
+                    <td class="text-left" id="out_owners" style="line-height: 1.3;">মালিক<br>দং-গিয়াস উদ্দিন</td>
+                    <td style="line-height: 1.3;"><br>০.৪৪৭</td>
                     <td></td>
-                    <td id="out_dag">৪২৫৭<br>৪২৫৮<br>৪২৫৯</td>
-                    <td class="text-left">বাড়ী<br>বাড়ী<br>বাড়ী</td>
+                    <td id="out_dag">৪২৫৭</td>
+                    <td class="text-left">বাড়ী</td>
                     <td></td>
                     <td><br><br>৮</td>
-                    <td>৫৮০০<br>৮৮০০<br>০০০০</td>
-                    <td>০.৪০৩<br>০.০৫৫<br>০.৩০০</td>
-                    <td>০<br>০<br>০</td>
-                    <td>০৬০০<br>০৬০০<br>৬০০০</td>
-                    <td class="text-left">টিন/১<br><br><br>টিন/৫ ঘর/৫</td>
+                    <td>৫৮০০</td>
+                    <td>০.৪০৩</td>
+                    <td>০</td>
+                    <td>০৬০০</td>
+                    <td class="text-left">টিন/১</td>
                 </tr>
                 <tr>
-                    <td class="text-left" style="font-size: 11px;">
-                        ............ধারামতে নোট বা পরিবর্তন মায়<br>
-                        মোকদমা নং ..... এবং সন.........
-                    </td>
+                    <td class="text-left" style="font-size: 11px;">............ধারামতে নোট বা পরিবর্তন মায়<br>মোকদমা নং ..... এবং সন.........</td>
                     <td>১.০০০</td>
                     <td colspan="4"><b>পরিবার পরিকল্পনা গ্রহণ করুন</b></td>
                     <td colspan="2"><b>মোট জমি:</b></td>
-                    <td><b>০</b></td>
-                    <td><b>৮০০০</b></td>
+                    <td><b id="out_acre">০</b></td>
+                    <td><b id="out_sotangso">৮০০০</b></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -237,7 +209,6 @@
     </div>
 </div>
 
-<!-- Login Modal Window -->
 <div class="modal" id="login_modal">
     <div class="modal-content">
         <h3 style="margin-bottom: 15px; color:#f97316;">এডমিন লগইন</h3>
@@ -248,11 +219,11 @@
 </div>
 
 <script>
-    const ADMIN_PASS = "admin123"; // অ্যাডমিন পাসওয়ার্ড
+    const ADMIN_PASS = "admin123";
     let khatianData = JSON.parse(localStorage.getItem('khatians')) || [
         { 
             khatian: '৬৬৮', division: 'চট্টগ্রাম', district: 'নোয়াখালী', upazila: 'বেগমগঞ্জ', mouza: 'অনন্তপুর', jl: '২৩৪', 
-            dag: '4257,4258,4259', owners: 'দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন', expiry: '2026-12-31' 
+            dag: '4257,4258,4259', acre: '০', sotangso: '৮০০০', owners: 'দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন', expiry: '2026-12-31' 
         }
     ];
 
@@ -260,8 +231,7 @@
     function closeLoginModal() { document.getElementById('login_modal').style.display = 'none'; }
 
     function loginAdmin() {
-        const pass = document.getElementById('pass_input').value;
-        if(pass === ADMIN_PASS) {
+        if(document.getElementById('pass_input').value === ADMIN_PASS) {
             sessionStorage.setItem('isAdmin', 'true');
             closeLoginModal();
             checkAuth();
@@ -297,32 +267,37 @@
     }
 
     function updateSheet() {
-        const khatian = document.getElementById('in_khatian').value;
-        const division = document.getElementById('in_division').value;
-        const district = document.getElementById('in_district').value;
-        const upazila = document.getElementById('in_upazila').value;
-        const mouza = document.getElementById('in_mouza').value;
-        const jl = document.getElementById('in_jl').value;
-        const dag = document.getElementById('in_dag').value;
-        const owners = document.getElementById('in_owners').value;
-        const expiry = document.getElementById('in_expiry').value;
+        const item = {
+            khatian: document.getElementById('in_khatian').value,
+            division: document.getElementById('in_division').value,
+            district: document.getElementById('in_district').value,
+            upazila: document.getElementById('in_upazila').value,
+            mouza: document.getElementById('in_mouza').value,
+            jl: document.getElementById('in_jl').value,
+            dag: document.getElementById('in_dag').value,
+            acre: document.getElementById('in_acre').value,
+            sotangso: document.getElementById('in_sotangso').value,
+            owners: document.getElementById('in_owners').value,
+            expiry: document.getElementById('in_expiry').value
+        };
 
-        document.getElementById('out_khatian').innerText = toBanglaNum(khatian);
-        document.getElementById('out_division').innerText = division;
-        document.getElementById('out_district').innerText = district;
-        document.getElementById('out_upazila').innerText = upazila;
-        document.getElementById('out_mouza').innerText = mouza;
-        document.getElementById('out_jl').innerText = toBanglaNum(jl);
+        document.getElementById('out_khatian').innerText = toBanglaNum(item.khatian);
+        document.getElementById('out_division').innerText = item.division;
+        document.getElementById('out_district').innerText = item.district;
+        document.getElementById('out_upazila').innerText = item.upazila;
+        document.getElementById('out_mouza').innerText = item.mouza;
+        document.getElementById('out_jl').innerText = toBanglaNum(item.jl);
+        document.getElementById('out_acre').innerText = toBanglaNum(item.acre);
+        document.getElementById('out_sotangso').innerText = toBanglaNum(item.sotangso);
         
-        document.getElementById('out_dag').innerHTML = dag.split(',').map(d => toBanglaNum(d.trim())).join('<br>');
+        document.getElementById('out_dag').innerHTML = item.dag.split(',').map(d => toBanglaNum(d.trim())).join('<br>');
 
-        const ownerArray = owners.split(',');
         let ownerHTML = 'মালিক<br>';
-        ownerArray.forEach(o => { if(o.trim()) ownerHTML += `${o.trim()}<br>`; });
+        item.owners.split(',').forEach(o => { if(o.trim()) ownerHTML += `${o.trim()}<br>`; });
         document.getElementById('out_owners').innerHTML = ownerHTML;
 
-        checkExpiry(expiry);
-        generateQR({ khatian, division, district, upazila, mouza, expiry, dag, owners });
+        checkExpiry(item.expiry);
+        generateQR(item);
     }
 
     function checkExpiry(expVal) {
@@ -347,7 +322,8 @@
     function generateQR(item) {
         const qrContainer = document.getElementById('qrcode');
         qrContainer.innerHTML = '';
-        const verifyURL = `https://mdrasel72735.github.io/dlrms.land.govt/verify.html?khatian=${encodeURIComponent(item.khatian)}&exp=${encodeURIComponent(item.expiry)}`;
+        const baseURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+        const verifyURL = `${baseURL}/verify.html?khatian=${encodeURIComponent(item.khatian)}&owners=${encodeURIComponent(item.owners)}&dag=${encodeURIComponent(item.dag)}&mouza=${encodeURIComponent(item.mouza)}&upazila=${encodeURIComponent(item.upazila)}&district=${encodeURIComponent(item.district)}&division=${encodeURIComponent(item.division)}&acre=${encodeURIComponent(item.acre)}&sotangso=${encodeURIComponent(item.sotangso)}`;
 
         new QRCode(qrContainer, { text: verifyURL, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.H });
     }
@@ -361,6 +337,7 @@
                     <td>${item.khatian}</td>
                     <td>${item.mouza}</td>
                     <td>${item.upazila}</td>
+                    <td>${item.acre || '০'} একর ${item.sotangso || '০'} শতাংশ</td>
                     <td><span style="color:#f59e0b; font-weight:bold;">${item.expiry || 'সীমা নেই'}</span></td>
                     <td>
                         <button class="btn btn-blue" style="padding:2px 6px; font-size:12px;" onclick="loadToForm(${index})">ভিউ</button>
@@ -382,6 +359,8 @@
         document.getElementById('in_mouza').value = item.mouza;
         document.getElementById('in_jl').value = item.jl;
         document.getElementById('in_dag').value = item.dag || '';
+        document.getElementById('in_acre').value = item.acre || '০';
+        document.getElementById('in_sotangso').value = item.sotangso || '০';
         document.getElementById('in_owners').value = item.owners || '';
         document.getElementById('in_expiry').value = item.expiry || '';
         updateSheet();
@@ -397,6 +376,8 @@
             mouza: document.getElementById('in_mouza').value,
             jl: document.getElementById('in_jl').value,
             dag: document.getElementById('in_dag').value,
+            acre: document.getElementById('in_acre').value,
+            sotangso: document.getElementById('in_sotangso').value,
             owners: document.getElementById('in_owners').value,
             expiry: document.getElementById('in_expiry').value
         };
@@ -432,6 +413,5 @@
         updateSheet();
     };
 </script>
-
 </body>
 </html>
