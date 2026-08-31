@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বিআরএস খতিয়ান জেনারেটর</title>
+    <title>বিআরএস খতিয়ান নং- ৬১৮</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
@@ -12,34 +12,39 @@
         
         .container { max-width: 1050px; margin: auto; }
         .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-        .header-title { font-size: 20px; color: #f97316; margin-bottom: 15px; font-weight: bold; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-back { background: #475569; color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 4px; font-size: 14px; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-back:hover { background: #64748b; }
+        .header-title { font-size: 20px; color: #f97316; font-weight: bold; }
         
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
         .form-group label { font-size: 13px; color: #cbd5e1; }
-        input, select, textarea { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 13px; outline: none; }
+        input { background: #0f172a; border: 1px solid #475569; color: #fff; padding: 6px 8px; border-radius: 4px; font-size: 13px; outline: none; }
         input:focus { border-color: #38bdf8; }
         
         .btn-print { background: #16a34a; color: #fff; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s; }
         .btn-print:hover { background: #15803d; }
 
-        /* Output Sheet Style */
-        .sheet-container { background: #fff; color: #000; padding: 30px 40px; border-radius: 4px; max-width: 1000px; margin: auto; }
+        /* Output Document Style */
+        .sheet-container { background: #fff; color: #000; padding: 25px 35px; border-radius: 4px; max-width: 1050px; margin: auto; }
         
-        .sheet-header { position: relative; margin-bottom: 10px; }
-        .khatian-title { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .sheet-header { position: relative; margin-bottom: 5px; text-align: center; }
+        .gov-logo { width: 50px; height: 50px; margin: 0 auto 5px auto; display: block; }
+        .khatian-title { font-size: 22px; font-weight: bold; }
         .page-no { position: absolute; right: 0; top: 0; font-size: 14px; }
         
-        .top-meta { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; margin-bottom: 8px; }
+        .top-meta { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 8px; }
         
         /* Table Structure */
-        .khatian-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
-        .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 4px 6px; font-size: 13px; text-align: center; vertical-align: top; }
-        .khatian-table th { font-weight: bold; background-color: #f8fafc; }
+        .khatian-table { width: 100%; border-collapse: collapse; margin-top: 2px; }
+        .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 3px 5px; font-size: 13px; text-align: center; vertical-align: top; }
+        .khatian-table th { font-weight: bold; background-color: #fff; }
         .text-left { text-align: left !important; }
 
-        .footer-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; position: relative; }
-        .footer-text { font-size: 12px; line-height: 1.5; }
+        .footer-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; position: relative; }
+        .footer-text { font-size: 12px; line-height: 1.4; }
         
         /* Official Seal */
         .official-seal {
@@ -53,16 +58,20 @@
             body { background: #fff; padding: 0; }
             .no-print { display: none !important; }
             .sheet-container { padding: 0; width: 100%; max-width: 100%; }
-            @page { size: A4 landscape; margin: 12mm; }
+            @page { size: A4 landscape; margin: 10mm; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Form Controls -->
+    <!-- Form Controls & Navigation -->
     <div class="card no-print">
-        <div class="header-title">বিআরএস খতিয়ান তথ্য ইনপুট ফরম</div>
+        <div class="top-bar">
+            <a href="javascript:history.back()" class="btn-back">⬅ ব্যাকে যান</a>
+            <div class="header-title">বিআরএস খতিয়ান তথ্য ইনপুট ফরম</div>
+            <div></div>
+        </div>
         
         <div class="form-grid">
             <div class="form-group"><label>খতিয়ান নং:</label><input type="text" id="in_khatian" value="৬১৮" oninput="updateSheet()"></div>
@@ -77,10 +86,15 @@
         <button class="btn-print" onclick="window.print()">🖨 খতিয়ান সেভ ও প্রিন্ট করুন</button>
     </div>
 
-    <!-- Realistic Output Khatian Document -->
+    <!-- Printable Khatian Sheet -->
     <div class="sheet-container">
         <div class="sheet-header">
             <div class="page-no">পৃষ্ঠা নং: ১ এর ১</div>
+            <!-- Official Bangladesh Emblem Logo -->
+            <svg class="gov-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#006a4e"/>
+                <circle cx="50" cy="50" r="22" fill="#f42a41"/>
+            </svg>
             <div class="khatian-title">খতিয়ান নং- <span id="out_khatian">৬১৮</span></div>
         </div>
 
@@ -89,71 +103,87 @@
             <div>জেলা: <span id="out_district">নোয়াখালী</span></div>
             <div>উপজেলা/থানা: <span id="out_upazila">বেগমগঞ্জ</span></div>
             <div>মৌজা: <span id="out_mouza">অনন্তপুর</span></div>
-            <div>জে. এল. নং: <span id="out_jl">২৩৪</span></div>
-            <div>রে. সা. নং: <span id="out_resa"></span></div>
+            <div>জে, এল, নং: <span id="out_jl">২৩৪</span></div>
+            <div>রে: সা: নং: <span id="out_resa"></span></div>
         </div>
 
         <table class="khatian-table">
             <thead>
                 <tr>
-                    <th rowspan="2" style="width: 22%;">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা</th>
-                    <th rowspan="2" style="width: 6%;">অংশ</th>
+                    <th rowspan="2" style="width: 20%;">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা</th>
+                    <th rowspan="2" style="width: 5%;">অংশ</th>
                     <th rowspan="2" style="width: 5%;">রাজস্ব</th>
-                    <th rowspan="2" style="width: 6%;">দাগ</th>
-                    <th rowspan="2" style="width: 8%;">জমি শ্রেণী</th>
+                    <th rowspan="2" style="width: 5%;">দাগ</th>
+                    <th colspan="2" style="width: 16%;">জমির শ্রেণী</th>
                     <th colspan="2" style="width: 12%;">দাগের মোট পরিমাণ</th>
-                    <th rowspan="2" style="width: 9%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
-                    <th colspan="2" style="width: 12%;">অংশানুযায়ী জমির পরিমাণ</th>
-                    <th rowspan="2" style="width: 20%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
+                    <th rowspan="2" style="width: 8%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
+                    <th colspan="2" style="width: 11%;">অংশানুযায়ী জমির পরিমাণ</th>
+                    <th rowspan="2" style="width: 18%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
                 </tr>
                 <tr>
-                    <th>একর</th><th>শতাংশ</th>
-                    <th>একর</th><th>শতাংশ</th>
+                    <th>কৃষি ৫(ক)</th>
+                    <th>অকৃষি ৫(খ)</th>
+                    <th>একর ৬(ক)</th>
+                    <th>শতাংশ ৬(খ)</th>
+                    <th>একর ৮(ক)</th>
+                    <th>শতাংশ ৮(খ)</th>
                 </tr>
                 <tr>
-                    <th>১</th><th>২</th><th>৩</th><th>৪</th><th>৫</th><th>৬(ক)</th><th>৬(খ)</th><th>৭</th><th>৮(ক)</th><th>৮(খ)</th><th>৯</th>
+                    <th>১</th><th>২</th><th>৩</th><th>৪</th><th colspan="2">৫</th><th>৬(ক)</th><th>৬(খ)</th><th>৭</th><th>৮(ক)</th><th>৮(খ)</th><th>৯</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left" style="line-height: 1.4;">
-                        <b>মালিক:</b><br>
-                        দং-গিয়াস উদ্দিন - ০.১২৫<br>
-                        নিজাম উদ্দিন - ০.১২৫<br>
-                        মহি উদ্দিন - ০.১২৫<br>
-                        কামাল উদ্দিন - ০.১২৫<br>
-                        সিরাজ উদ্দিন - ০.১২৫<br>
-                        আলা উদ্দিন - ০.১২৫<br>
-                        জহির উদ্দিন - ০.১২৫<br>
-                        শাাফিয়া খাতুন জং আনোয়ার আহমেদ - ০.০৭৫<br>
-                        মনোয়ারা বেগম জং ফজলুল হক - ০.০৫০<br>
+                    <td class="text-left" style="line-height: 1.35;">
+                        মালিক<br>
+                        দং-গিয়াস উদ্দিন<br>
+                        নিজাম উদ্দিন<br>
+                        মহি উদ্দিন<br>
+                        কামাল উদ্দিন<br>
+                        সিরাজ উদ্দিন<br>
+                        আলা উদ্দিন<br>
+                        জহির উদ্দিন<br>
+                        পিং আনোয়ার আহমেদ<br>
+                        শাফিয়া খাতুন<br>
+                        জং আনোয়ার আহমেদ<br>
+                        মনোয়ারা বেগম<br>
+                        জং ফজলুল হক<br>
                         সাং নিজ
                     </td>
-                    <td><br>১.০০০</td>
+                    <td style="line-height: 1.35;"><br>
+                        ০.১১৭<br>
+                        ০.১১৭<br>
+                        ০.১১৭<br>
+                        ০.১১৭<br>
+                        ০.১১৭<br>
+                        ০.১১৬<br>
+                        ০.১১৬<br><br>
+                        ০.১২৫<br><br>
+                        ০.০৫৮
+                    </td>
                     <td></td>
                     <td>৪২৫৭<br>৪২৫৮<br>৪২৫৯</td>
-                    <td>বাড়ী<br>বাড়ী<br>বাড়ী</td>
+                    <td class="text-left">বাড়ী<br>বাড়ী<br>বাড়ী</td>
+                    <td></td>
                     <td><br><br>১</td>
-                    <td>৫৮.০০<br>১৮.০০<br>০০.০০</td>
+                    <td>৫৮০০<br>১৮০০<br>০০০০</td>
                     <td>০.১০৩<br>০.০৫৫<br>০.৩০০</td>
                     <td>০<br>০<br>০</td>
-                    <td>০৬.০০<br>০১.০০<br>৩০.০০</td>
+                    <td>০৬০০<br>০১০০<br>৩০০০</td>
                     <td class="text-left">
-                        টিন/১<br>
-                        টিন/১ ঘর/১<br>
+                        টিন/১<br><br>
+                        টিন/১ ঘর/১
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-left"><b>মোট জমি:</b></td>
-                    <td><b>১.০০০</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="text-left" style="font-size: 11px;">
+                        ............ধারামতে নোট বা পরিবর্তন <b>মায় মোকদ্দমা নং ..... এবং সন.........</b>
+                    </td>
+                    <td>১.০০০</td>
+                    <td colspan="4"><b>পরিবার পরিকল্পনা গ্রহণ করুন</b></td>
+                    <td colspan="2"><b>মোট জমি:</b></td>
                     <td><b>০</b></td>
-                    <td><b>৩৭.০০</b></td>
+                    <td><b>৩৭০০</b></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -161,7 +191,7 @@
 
         <div class="footer-section">
             <div class="footer-text">
-                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: ২৬-০৮-২০২৬<br>
+                মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: ২২-০৮-২০২৬<br>
                 বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
             </div>
 
@@ -199,7 +229,7 @@
         const upazila = document.getElementById('in_upazila').value;
         const mouza = document.getElementById('in_mouza').value;
 
-        const verifyURL = `https://mdrasel72735.github.io/land-verify/verify.html?khatian=${encodeURIComponent(khatian)}&division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}&owner=${encodeURIComponent('দং-গিয়াস উদ্দিন ও অন্যান্য')}&dag=${encodeURIComponent('৪২৫৭, ৪২৫৮, ৪২৫৯')}`;
+        const verifyURL = `https://mdrasel72735.github.io/land-verify/verify.html?khatian=${encodeURIComponent(khatian)}&division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}`;
 
         new QRCode(qrContainer, {
             text: verifyURL,
