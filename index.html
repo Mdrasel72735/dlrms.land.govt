@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বিআরএস খতিয়ান সংশোধন ও অ্যাডমিন প্যানেল</title>
+    <title>বিআরএস খতিয়ান সংশোধন ও অ্যাডমিন প্যানেল</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -55,7 +55,7 @@
     <div class="card no-print">
         <div class="top-bar">
             <button onclick="location.reload()" class="btn btn-blue"><i class="fa-solid fa-rotate-right"></i> রিফ্রেশ করুন</button>
-            <div class="header-title">বিআরএস খতিয়ান পোর্টাল</div>
+            <div class="header-title">বিআরএস খতিয়ান পোর্টাল</div>
             <div style="display: flex; gap: 10px; align-items: center;">
                 <button onclick="window.print()" class="btn btn-print"><i class="fa-solid fa-print"></i> প্রিন্ট করুন</button>
                 <div id="auth_controls">
@@ -69,47 +69,47 @@
     <!-- ADMIN EDIT PANEL -->
     <div class="card no-print" id="admin_panel" style="display: none;">
         <div style="color:#10b981; font-size:16px; font-weight:bold; margin-bottom:10px;">
-            <i class="fa-solid fa-user-shield"></i> এডমিন প্যানেল: তথ্য সংশোধন, জমি পরিমাপ ও মেয়াদ
+            <i class="fa-solid fa-user-shield"></i> এডমিন প্যানেল: তথ্য সংশোধন, জমি পরিমাপ ও মেয়াদ
         </div>
         
         <input type="hidden" id="edit_index" value="-1">
         
         <div class="form-grid">
-            <div class="form-group"><label>খতিয়ান নং:</label><input type="text" id="in_khatian" value="৬৬৮" oninput="updateSheet()"></div>
+            <div class="form-group"><label>খতিয়ান নং:</label><input type="text" id="in_khatian" value="৬৬৮" oninput="updateSheet()"></div>
             <div class="form-group"><label>বিভাগ:</label><input type="text" id="in_division" value="চট্টগ্রাম" oninput="updateSheet()"></div>
-            <div class="form-group"><label>জেলা:</label><input type="text" id="in_district" value="নোয়াখালী" oninput="updateSheet()"></div>
+            <div class="form-group"><label>জেলা:</label><input type="text" id="in_district" value="নোয়াখালী" oninput="updateSheet()"></div>
             <div class="form-group"><label>উপজেলা/থানা:</label><input type="text" id="in_upazila" value="বেগমগঞ্জ" oninput="updateSheet()"></div>
             <div class="form-group"><label>মৌজা:</label><input type="text" id="in_mouza" value="অনন্তপুর" oninput="updateSheet()"></div>
             <div class="form-group"><label>জে. এল. নং:</label><input type="text" id="in_jl" value="২৩৪" oninput="updateSheet()"></div>
-            <div class="form-group"><label>দাগ নং (কমা দিয়ে):</label><input type="text" id="in_dag" value="4257,4258,4259" oninput="updateSheet()"></div>
+            <div class="form-group"><label>দাগ নং (কমা দিয়ে):</label><input type="text" id="in_dag" value="4257,4258,4259" oninput="updateSheet()"></div>
             
             <div class="form-group"><label style="color:#38bdf8; font-weight:bold;">মোট জমি (একর):</label><input type="text" id="in_acre" value="০" oninput="updateSheet()"></div>
             <div class="form-group"><label style="color:#38bdf8; font-weight:bold;">মোট জমি (শতাংশ):</label><input type="text" id="in_sotangso" value="৮০০০" oninput="updateSheet()"></div>
 
             <div class="form-group" style="grid-column: span 2;">
                 <label>প্রধান মালিকদের নাম:</label>
-                <input type="text" id="in_owners" value="দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন" oninput="updateSheet()">
+                <input type="text" id="in_owners" value="দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন" oninput="updateSheet()">
             </div>
             <div class="form-group" style="grid-column: span 2;">
-                <label style="color:#f59e0b; font-weight:bold;">মেয়াদ শেষের তারিখ:</label>
+                <label style="color:#f59e0b; font-weight:bold;">মেয়াদ শেষের তারিখ:</label>
                 <input type="date" id="in_expiry" value="2026-12-31" onchange="updateSheet()">
             </div>
         </div>
 
-        <button class="btn btn-green" onclick="saveKhatian()"><i class="fa-solid fa-floppy-disk"></i> খতিয়ান সেভ করুন</button>
+        <button class="btn btn-green" onclick="saveKhatian()"><i class="fa-solid fa-floppy-disk"></i> খতিয়ান সেভ করুন</button>
     </div>
 
     <!-- SAVED LIST PANEL -->
     <div class="card no-print" id="list_panel" style="display: none;">
-        <div style="color:#f97316; font-weight:bold; font-size:16px;">সংরক্ষিত খতিয়ান তালিকা</div>
+        <div style="color:#f97316; font-weight:bold; font-size:16px;">সংরক্ষিত খতিয়ান তালিকা</div>
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>খতিয়ান নং</th>
+                    <th>খতিয়ান নং</th>
                     <th>মৌজা</th>
                     <th>উপজেলা</th>
                     <th>মোট জমি</th>
-                    <th>মেয়াদের তারিখ</th>
+                    <th>মেয়াদের তারিখ</th>
                     <th>অ্যাকশন</th>
                 </tr>
             </thead>
@@ -118,19 +118,19 @@
     </div>
 
     <div id="expired_block" class="expired-msg">
-        ⚠️ এই খতিয়ানটির প্রদর্শনী সময়সীমা (মেয়াদ) শেষ হয়ে গেছে!
+        ⚠️ এই খতিয়ানটির প্রদর্শনী সময়সীমা (মেয়াদ) শেষ হয়ে গেছে!
     </div>
 
     <!-- Printable Official Sheet -->
     <div class="sheet-container" id="sheet_main">
         <div class="sheet-header">
             <div class="page-no">পৃষ্ঠা নং: ১ এর ১</div>
-            <div class="khatian-title">খতিয়ান নং- <span id="out_khatian">৬৬৮</span></div>
+            <div class="khatian-title">খতিয়ান নং- <span id="out_khatian">৬৬৮</span></div>
         </div>
 
         <div class="top-meta">
             <div>বিভাগ: <span id="out_division">চট্টগ্রাম</span></div>
-            <div>জেলা: <span id="out_district">নোয়াখালী</span></div>
+            <div>জেলা: <span id="out_district">নোয়াখালী</span></div>
             <div>উপজেলা/থানা: <span id="out_upazila">বেগমগঞ্জ</span></div>
             <div>মৌজা: <span id="out_mouza">অনন্তপুর</span></div>
             <div>জে, এল, নং: <span id="out_jl">২৩৪</span></div>
@@ -146,9 +146,9 @@
                     <th rowspan="2" style="width: 6%;">দাগ</th>
                     <th colspan="2" style="width: 12%;">জমির শ্রেণী</th>
                     <th colspan="2" style="width: 12%;">দাগের মোট পরিমাণ</th>
-                    <th rowspan="2" style="width: 8%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
-                    <th colspan="2" style="width: 10%;">অংশানুযায়ী জমির পরিমাণ</th>
-                    <th rowspan="2" style="width: 18%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
+                    <th rowspan="2" style="width: 8%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
+                    <th colspan="2" style="width: 10%;">অংশানুযায়ী জমির পরিমাণ</th>
+                    <th rowspan="2" style="width: 18%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
                 </tr>
                 <tr>
                     <th>কৃষি ৫(ক)</th><th>অকৃষি ৫(খ)</th><th>একর ৬(ক)</th><th>শতাংশ ৬(খ)</th><th>একর ৮(ক)</th><th>শতাংশ ৮(খ)</th>
@@ -159,11 +159,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left" id="out_owners" style="line-height: 1.3;">মালিক<br>দং-গিয়াস উদ্দিন</td>
+                    <td class="text-left" id="out_owners" style="line-height: 1.3;">মালিক<br>দং-গিয়াস উদ্দিন</td>
                     <td style="line-height: 1.3;"><br>০.৪৪৭</td>
                     <td></td>
                     <td id="out_dag">৪২৫৭</td>
-                    <td class="text-left">বাড়ী</td>
+                    <td class="text-left">বাড়ী</td>
                     <td></td>
                     <td><br><br>৮</td>
                     <td>৫৮০০</td>
@@ -173,7 +173,7 @@
                     <td class="text-left">টিন/১</td>
                 </tr>
                 <tr>
-                    <td class="text-left" style="font-size: 11px;">............ধারামতে নোট বা পরিবর্তন মায়<br>মোকদমা নং ..... এবং সন.........</td>
+                    <td class="text-left" style="font-size: 11px;">............ধারামতে নোট বা পরিবর্তন মায়<br>মোকদমা নং ..... এবং সন.........</td>
                     <td>১.০০০</td>
                     <td colspan="4"><b>পরিবার পরিকল্পনা গ্রহণ করুন</b></td>
                     <td colspan="2"><b>মোট জমি:</b></td>
@@ -190,21 +190,9 @@
                 বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
             </div>
 
-            <div style="width:100px; height:100px;">
-                <svg viewBox="0 0 200 200" width="95" height="95" xmlns="http://www.w3.org/2000/svg">
-                    <path id="topCurve" d="M 22, 100 A 78,78 0 1,1 178, 100" fill="none" />
-                    <path id="bottomCurve" d="M 178, 100 A 78,78 0 0,1 22, 100" fill="none" />
-                    <circle cx="100" cy="100" r="96" fill="none" stroke="#1d2e4a" stroke-width="2.5" />
-                    <circle cx="100" cy="100" r="88" fill="none" stroke="#1d2e4a" stroke-width="1.2" />
-                    <circle cx="100" cy="100" r="56" fill="none" stroke="#1d2e4a" stroke-width="1.8" />
-                    <text fill="#1d2e4a" font-size="9" font-weight="700">
-                        <textPath href="#topCurve" startOffset="50%" text-anchor="middle">জেলা রেকর্ড রুম, জেলা প্রশাসকের কার্যালয়</textPath>
-                    </text>
-                    <text fill="#1d2e4a" font-size="11" font-weight="700">
-                        <textPath href="#bottomCurve" startOffset="50%" text-anchor="middle">নোয়াখালী</textPath>
-                    </text>
-                    <circle cx="100" cy="100" r="22" fill="#1d2e4a"/>
-                </svg>
+            <!-- আপলোড করা logo.png প্রদর্শন করার সেকশন -->
+            <div style="width:100px; height:100px; display:flex; align-items:center; justify-content:center;">
+                <img src="logo.png" alt="Logo" style="width:95px; height:95px; object-fit:contain;">
             </div>
 
             <div id="qrcode"></div>
@@ -215,7 +203,7 @@
 <div class="modal" id="login_modal">
     <div class="modal-content">
         <h3 style="margin-bottom: 15px; color:#f97316;">এডমিন লগইন</h3>
-        <input type="password" id="pass_input" placeholder="পাসওয়ার্ড লিখুন" style="width: 100%; margin-bottom: 15px;">
+        <input type="password" id="pass_input" placeholder="পাসওয়ার্ড লিখুন" style="width: 100%; margin-bottom: 15px;">
         <button onclick="loginAdmin()" class="btn btn-orange" style="width: 100%;">লগইন</button>
         <button onclick="closeLoginModal()" class="btn" style="width: 100%; margin-top: 5px; background: #475569; color:#fff;">বাতিল</button>
     </div>
@@ -225,8 +213,8 @@
     const ADMIN_PASS = "admin123";
     let khatianData = JSON.parse(localStorage.getItem('khatians')) || [
         { 
-            khatian: '৬৬৮', division: 'চট্টগ্রাম', district: 'নোয়াখালী', upazila: 'বেগমগঞ্জ', mouza: 'অনন্তপুর', jl: '২৩৪', 
-            dag: '4257,4258,4259', acre: '০', sotangso: '৮০০০', owners: 'দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন', expiry: '2026-12-31' 
+            khatian: '৬৬৮', division: 'চট্টগ্রাম', district: 'নোয়াখালী', upazila: 'বেগমগঞ্জ', mouza: 'অনন্তপুর', jl: '২৩৪', 
+            dag: '4257,4258,4259', acre: '০', sotangso: '৮০০০', owners: 'দং-গিয়াস উদ্দিন, নিজাম উদ্দিন, মহি উদ্দিন, কামাল উদ্দিন, সিরাজ উদ্দিন, আলা উদ্দিন', expiry: '2026-12-31' 
         }
     ];
 
@@ -238,9 +226,9 @@
             sessionStorage.setItem('isAdmin', 'true');
             closeLoginModal();
             checkAuth();
-            alert("সফলভাবে লগইন হয়েছে!");
+            alert("সফলভাবে লগইন হয়েছে!");
         } else {
-            alert("ভুল পাসওয়ার্ড!");
+            alert("ভুল পাসওয়ার্ড!");
         }
     }
 
@@ -264,7 +252,7 @@
     }
 
     function setAutoDate() {
-        const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+        const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
         const today = new Date();
         document.getElementById('auto_date').innerText = `${toBanglaNum(today.getDate().toString().padStart(2, '0'))}-${months[today.getMonth()]}-${toBanglaNum(today.getFullYear())}`;
     }
@@ -322,7 +310,6 @@
         }
     }
 
-    /* আগের ভার্সনের সিম্পল কিউআর কোড (অফিসিয়াল ল্যান্ড পোর্টাল লিংক) */
     function generateQR(item) {
         const qrContainer = document.getElementById('qrcode');
         qrContainer.innerHTML = '';
@@ -393,7 +380,7 @@
         }
 
         renderList();
-        alert("খতিয়ান সংরক্ষণ করা হয়েছে!");
+        alert("খতিয়ান সংরক্ষণ করা হয়েছে!");
     }
 
     function editKhatian(index) {
@@ -403,7 +390,7 @@
     }
 
     function deleteKhatian(index) {
-        if (confirm("আপনি কি নিশ্চিত এই খতিয়ানটি ডিলেট করতে চান?")) {
+        if (confirm("আপনি কি নিশ্চিত এই খতিয়ানটি ডিলেট করতে চান?")) {
             khatianData.splice(index, 1);
             renderList();
         }
