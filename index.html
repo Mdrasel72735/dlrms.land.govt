@@ -37,8 +37,13 @@
         .khatian-table { width: 100%; border-collapse: collapse; margin-top: 2px; }
         .khatian-table th, .khatian-table td { border: 1px solid #000; padding: 3px 4px; font-size: 12.5px; text-align: center; vertical-align: top; }
         .text-left { text-align: left !important; }
-        .footer-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
-        .footer-text { font-size: 12px; line-height: 1.4; }
+        
+        /* ফুটার সেকশন ও কেন্দ্রস্থিত লোগো স্টাইল */
+        .footer-section { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; position: relative; }
+        .footer-text { font-size: 12px; line-height: 1.4; flex: 1; }
+        .logo-center { flex: 1; display: flex; justify-content: center; align-items: center; }
+        .qr-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+        
         #qrcode img, #qrcode canvas { width: 85px !important; height: 85px !important; }
         .expired-msg { display: none; background: #ef4444; color: white; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; border-radius: 6px; margin-bottom: 15px; }
         @media print {
@@ -184,18 +189,20 @@
             </tbody>
         </table>
 
+        <!-- ফুটার অংশ (মাঝখানে ডায়নামিক লোগো) -->
         <div class="footer-section">
             <div class="footer-text">
                 মুদ্রণ: সেটলেমেন্ট প্রেস, ঢাকা। তারিখ: <span id="auto_date">--</span><br>
                 বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
             </div>
 
-            <!-- আপলোড করা logo.png প্রদর্শন করার সেকশন -->
-            <div style="width:100px; height:100px; display:flex; align-items:center; justify-content:center;">
-                <img src="logo.png" alt="Logo" style="width:95px; height:95px; object-fit:contain;">
+            <div class="logo-center">
+                <img id="district_logo" src="logo.png" alt="Logo" style="width:95px; height:95px; object-fit:contain;">
             </div>
 
-            <div id="qrcode"></div>
+            <div class="qr-right">
+                <div id="qrcode"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -211,6 +218,19 @@
 
 <script>
     const ADMIN_PASS = "admin123";
+    
+    /* 
+      জেলা অনুযায়ী লোগো ম্যাপিং। 
+      আপনার ফোল্ডারে যে ইমেজের নাম থাকবে তা এখানে মিল রেখে দিয়ে দিন।
+    */
+    const districtLogoMap = {
+        'নোয়াখালী': 'noakhali_logo.png',
+        'চট্টগ্রাম': 'chittagong_logo.png',
+        'ঢাকা': 'dhaka_logo.png',
+        'কুমিল্লা': 'cumilla_logo.png'
+    };
+    const defaultLogo = 'logo.png'; // তালিকায় না থাকলে এই ডিফল্ট লোগোটি দেখাবে
+
     let khatianData = JSON.parse(localStorage.getItem('khatians')) || [
         { 
             khatian: '৬৬৮', division: 'চট্টগ্রাম', district: 'নোয়াখালী', upazila: 'বেগমগঞ্জ', mouza: 'অনন্তপুর', jl: '২৩৪', 
@@ -258,10 +278,12 @@
     }
 
     function updateSheet() {
+        const districtName = document.getElementById('in_district').value.trim();
+
         const item = {
             khatian: document.getElementById('in_khatian').value,
             division: document.getElementById('in_division').value,
-            district: document.getElementById('in_district').value,
+            district: districtName,
             upazila: document.getElementById('in_upazila').value,
             mouza: document.getElementById('in_mouza').value,
             jl: document.getElementById('in_jl').value,
@@ -286,6 +308,14 @@
         let ownerHTML = 'মালিক<br>';
         item.owners.split(',').forEach(o => { if(o.trim()) ownerHTML += `${o.trim()}<br>`; });
         document.getElementById('out_owners').innerHTML = ownerHTML;
+
+        // জেলা নাম পরিবর্তনের সাথে সাথে লোগো পরিবর্তন করার অংশ
+        const logoImg = document.getElementById('district_logo');
+        if (districtLogoMap[districtName]) {
+            logoImg.src = districtLogoMap[districtName];
+        } else {
+            logoImg.src = defaultLogo;
+        }
 
         checkExpiry(item.expiry);
         generateQR(item);
