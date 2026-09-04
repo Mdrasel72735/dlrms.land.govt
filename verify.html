@@ -3,96 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অনলাইন খতিয়ান ভেরিফিকেশন</title>
+    <title>খতিয়ান নং- ৬৬৮</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- QR Code Generator Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', Arial, sans-serif; }
-        body { background-color: #f1f5f9; color: #334155; padding: 12px; }
-        .verify-card { max-width: 480px; margin: auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; overflow: hidden; }
-        .card-header { background: #064e3b; color: #fff; text-align: center; padding: 14px; }
-        .card-header h2 { font-size: 17px; font-weight: 700; }
-        .card-header p { font-size: 12px; color: #a7f3d0; margin-top: 2px; }
-        .status-badge { background: #dcfce7; color: #166534; padding: 8px 12px; font-size: 13px; font-weight: bold; text-align: center; border-bottom: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .card-body { padding: 14px; }
-        .data-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding: 8px 0; font-size: 13px; }
-        .data-row:last-child { border-bottom: none; }
-        .label { font-weight: 600; color: #475569; width: 40%; }
-        .value { width: 60%; text-align: right; color: #0f172a; font-weight: 500; word-break: break-word; }
+        body { background-color: #0d131d; color: #000; padding: 20px 10px; display: flex; justify-content: center; }
         
-        /* QR Code Container Styling */
-        .qr-section { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; background: #f8fafc; border-top: 1px dashed #cbd5e1; }
-        #qrcode img { display: block; margin: auto; border: 4px solid #fff; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        .qr-label { font-size: 11px; color: #64748b; margin-top: 6px; font-weight: 500; }
+        .khatian-box {
+            background: #fff;
+            width: 100%;
+            max-width: 960px;
+            padding: 25px 30px;
+            border: 1px solid #000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
 
-        .footer-note { text-align: center; padding: 12px; font-size: 11px; color: #64748b; background: #f8fafc; border-top: 1px solid #e2e8f0; }
+        .header-top { display: flex; justify-content: flex-end; font-size: 13px; font-weight: bold; margin-bottom: 2px; }
+        .main-title { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 15px; letter-spacing: 0.5px; }
+        
+        .info-grid {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13.5px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+        }
+
+        /* Table Styling */
+        table.khatian-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        table.khatian-table th, table.khatian-table td {
+            border: 1px solid #000;
+            padding: 3px 2px;
+            vertical-align: top;
+            color: #000;
+        }
+
+        table.khatian-table th { font-weight: 600; line-height: 1.2; }
+
+        .owner-cell { text-align: left; padding-left: 6px !important; line-height: 1.35; font-size: 11.5px; }
+        
+        /* Bottom Footer Area */
+        .footer-section {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .footer-left { text-align: left; line-height: 1.4; color: #1e293b; }
+        
+        .seal-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .seal-mark {
+            width: 72px;
+            height: 72px;
+            border: 1.5px dashed #0f172a;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: bold;
+            text-align: center;
+            color: #1e293b;
+            line-height: 1.1;
+        }
+
+        #qrcode img { display: block; border: 1px solid #000; padding: 2px; }
     </style>
 </head>
 <body>
 
-<div class="verify-card">
-    <div class="card-header">
-        <h2>গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</h2>
-        <p>ভূমি রেকর্ড ও জরিপ অধিদপ্তর</p>
-    </div>
-    
-    <div class="status-badge">
-        ✓ ডিজিটাল রেকর্ড সত্যতা যাচাইকৃত
+<div class="khatian-box">
+    <div class="header-top">
+        <div>পৃষ্ঠা নং: ১ এর ১</div>
     </div>
 
-    <div class="card-body">
-        <div class="data-row"><div class="label">বিভাগ:</div><div class="value" id="v_division">-</div></div>
-        <div class="data-row"><div class="label">জেলা:</div><div class="value" id="v_district">-</div></div>
-        <div class="data-row"><div class="label">উপজেলা/থানা:</div><div class="value" id="v_upazila">-</div></div>
-        <div class="data-row"><div class="label">মৌজা:</div><div class="value" id="v_mouza">-</div></div>
-        <div class="data-row"><div class="label">খতিয়ান নং:</div><div class="value" id="v_khatian" style="font-weight: bold; color: #064e3b;">-</div></div>
-        <div class="data-row"><div class="label">মালিকের নাম:</div><div class="value" id="v_owner">-</div></div>
-        <div class="data-row"><div class="label">দাগ নং:</div><div class="value" id="v_dag">-</div></div>
+    <div class="main-title">খতিয়ান নং- ৬৬৮</div>
+
+    <div class="info-grid">
+        <div>বিভাগ: চট্টগ্রাম</div>
+        <div>জেলা: নোয়াখালী</div>
+        <div>উপজেলা/থানা: বেগমগঞ্জ</div>
+        <div>মৌজা: অনন্তপুর</div>
+        <div>জে, এল, নং: ২৩৪</div>
+        <div>রে: সা: নং:</div>
     </div>
 
-    <!-- QR Code Section -->
-    <div class="qr-section">
+    <table class="khatian-table">
+        <thead>
+            <tr>
+                <th rowspan="2" style="width: 21%;">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা</th>
+                <th rowspan="2" style="width: 5%;">অংশ</th>
+                <th rowspan="2" style="width: 4%;">রাজস্ব</th>
+                <th rowspan="2" style="width: 5%;">দাগ</th>
+                <th colspan="2" style="width: 15%;">জমির শ্রেণী</th>
+                <th colspan="2" style="width: 12%;">দাগের মোট পরিমাণ</th>
+                <th rowspan="2" style="width: 8%;">দাগের মধ্যে অত্র খতিয়ানের অংশ</th>
+                <th colspan="2" style="width: 12%;">অংশানুযায়ী জমির পরিমাণ</th>
+                <th rowspan="2" style="width: 18%;">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য</th>
+            </tr>
+            <tr>
+                <th>কৃষি ৫(ক)</th>
+                <th>অকৃষি ৫(খ)</th>
+                <th>একর ৬(ক)</th>
+                <th>শতাংশ ৬(খ)</th>
+                <th>একর ৮(ক)</th>
+                <th>শতাংশ ৮(খ)</th>
+            </tr>
+            <tr>
+                <td>১</td>
+                <td>২</td>
+                <td>৩</td>
+                <td>৪</td>
+                <td colspan="2">৫</td>
+                <td colspan="2">৬</td>
+                <td>৭</td>
+                <td colspan="2">৮</td>
+                <td>৯</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="owner-cell" rowspan="5">
+                    <strong>মালিক</strong><br>
+                    দং ছকিনা খাতুন<br>জং চৌধুরী মিয়া<br>
+                    রজ্জবের নেছা<br>জং আবুল কালাম<br>
+                    বদরের নেছা<br>জং আবুল কাশেম<br>
+                    রহিমা খাতুন<br>জং সফি উল্যা<br>
+                    জয়নাল আবদীন<br>
+                    আবুল কাশেম<br>
+                    আমিন উল্যা<br>
+                    পিং চৌধুরী মিয়া<br>
+                    সাং নিজ
+                </td>
+                <td>০.০৮৯</td>
+                <td></td>
+                <td>৪২৫৫</td>
+                <td>বাড়ী</td>
+                <td></td>
+                <td></td>
+                <td>৫৩০০</td>
+                <td>০.১৮৮</td>
+                <td>০</td>
+                <td>১০১০</td>
+                <td>টিন/১ ঘর/১</td>
+            </tr>
+            <tr>
+                <td>০.০৬৯</td>
+                <td></td>
+                <td>৪২৫৭</td>
+                <td>বাড়ী</td>
+                <td></td>
+                <td></td>
+                <td>৫৮০০</td>
+                <td>০.২৫৮</td>
+                <td>০</td>
+                <td>১৫০০</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>০.০৬৯</td>
+                <td></td>
+                <td>৪৩২৬</td>
+                <td>পুকুর</td>
+                <td></td>
+                <td>১</td>
+                <td>১৫০০</td>
+                <td>০.০৭০</td>
+                <td>০</td>
+                <td>০৮০০</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>০.০৬৯</td>
+                <td></td>
+                <td>৪৩২৭</td>
+                <td>বাড়ী</td>
+                <td></td>
+                <td></td>
+                <td>২৭০০</td>
+                <td>০.৪৯৭</td>
+                <td>০</td>
+                <td>১১০০</td>
+                <td>ঘর/২</td>
+            </tr>
+            <tr>
+                <td>
+                    ০.২৪৫<br>
+                    ০.২৪৫<br>
+                    ০.২১৪
+                </td>
+                <td></td>
+                <td>৪৩৩১</td>
+                <td>পুকুর</td>
+                <td></td>
+                <td></td>
+                <td>৪২০০০</td>
+                <td>০.৪৫৭</td>
+                <td>০</td>
+                <td>৩৬০০</td>
+                <td></td>
+            </tr>
+            <!-- Total Row -->
+            <tr style="font-weight: 600;">
+                <td class="owner-cell">..... ধারামতে নোট বা পরিবর্তন যায়<br>মোকদ্দমা নং ..... এবং সন .....</td>
+                <td>১.০০০</td>
+                <td></td>
+                <td colspan="5">পরিবার পরিকল্পনা গ্রহণ করুন</td>
+                <td>মোট জমি:</td>
+                <td>০</td>
+                <td>৮০০০</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-section">
+        <div class="footer-left">
+            মুদ্রণ: সেটেলমেন্ট প্রেস, ঢাকা। তারিখ: ২২-০৮-২০২৩<br>
+            বাংলাদেশ ফরম নং ৫৪৬২ (সংশোধিত)
+        </div>
+
+        <div class="seal-wrapper">
+            <div class="seal-mark">
+                জেলা রেকর্ড রুম<br>সীলমোহর
+            </div>
+        </div>
+
         <div id="qrcode"></div>
-        <div class="qr-label">অনলাইন ভেরিফিকেশনের জন্য কিউআর কোড স্ক্যান করুন</div>
-    </div>
-
-    <div class="footer-note">
-        ভূমি মন্ত্রণালয়ের ই-সার্ভিস সিস্টেম দ্বারা সরবরাহকৃত।
     </div>
 </div>
 
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    const division = urlParams.get('division') || 'চট্টগ্রাম';
-    const district = urlParams.get('district') || 'নোয়াখালী';
-    const upazila = urlParams.get('upazila') || 'বেগমগঞ্জ';
-    const mouza = urlParams.get('mouza') || 'অনন্তপুর (জে. এল. নং: ২৩৪)';
-    const khatian = urlParams.get('khatian') || '৬৬৮';
-    const owner = urlParams.get('owner') || 'দং ছকিনা খাতুন, রজ্জবের নেছা, বদরের নেছা, রহিমা খাতুন, জয়নাল আবদীন, আবুল কাশেম, আমিন উল্যা';
-    const dag = urlParams.get('dag') || '৪২৫৫, ৪২৫৭, ৪৩২৬, ৪৩২৭, ৪৩৩১';
-
-    document.getElementById('v_division').innerText = division;
-    document.getElementById('v_district').innerText = district;
-    document.getElementById('v_upazila').innerText = upazila;
-    document.getElementById('v_mouza').innerText = mouza;
-    document.getElementById('v_khatian').innerText = khatian;
-    document.getElementById('v_owner').innerText = owner;
-    document.getElementById('v_dag').innerText = dag;
-
-    // কিউআর কোডে ভেরিফিকেশন ইউআরএল তৈরি করার ফাংশন
-    const baseURL = window.location.origin + window.location.pathname;
-    const verifyURL = `${baseURL}?division=${encodeURIComponent(division)}&district=${encodeURIComponent(district)}&upazila=${encodeURIComponent(upazila)}&mouza=${encodeURIComponent(mouza)}&khatian=${encodeURIComponent(khatian)}&owner=${encodeURIComponent(owner)}&dag=${encodeURIComponent(dag)}`;
-
-    // QR Code জেনারেট করা
+    // QR Code জেনারেট করার স্ক্রিপ্ট
+    const currentURL = window.location.href;
     new QRCode(document.getElementById("qrcode"), {
-        text: verifyURL,
-        width: 110,
-        height: 110,
-        colorDark : "#064e3b",
+        text: currentURL,
+        width: 70,
+        height: 70,
+        colorDark : "#000000",
         colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
+        correctLevel : QRCode.CorrectLevel.M
     });
 </script>
 
